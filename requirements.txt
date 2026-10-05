@@ -1,0 +1,28 @@
+# Web Framework & API
+fastapi>=0.110.0                        # Modern web framework for building REST APIs
+uvicorn[standard]>=0.27.0               # ASGI server to run FastAPI application
+python-multipart>=0.0.6                 # Handles file uploads in FastAPI endpoints
+
+# Deep Learning & Neural Networks
+torch>=2.1.0                            # PyTorch - core deep learning framework
+torchaudio>=2.1.0                       # Audio processing utilities for PyTorch
+transformers>=4.35.0                    # Hugging Face library for Whisper ASR model
+
+# Audio Processing
+pydub>=0.25.1                           # Audio file format conversion (uses FFmpeg)
+noisereduce>=3.0.0                      # Noise reduction algorithm for cleaner audio input
+librosa>=0.10.0                         # Audio analysis library (used by noisereduce)
+scipy>=1.11.0                           # Scientific computing (required by noisereduce)
+
+# Chinese Language Processing
+pypinyin>=0.50.0                        # Converts Chinese characters to Pinyin (phonetic notation)
+opencc-python-reimplemented>=0.1.7      # Traditional/Simplified Chinese conversion
+
+# LLM Inference
+llama-cpp-python>=0.2.23                # Local LLM inference using GGUF quantized models
+
+# Utilities
+numpy>=1.24.0                           # Numerical computing (arrays, matrices)
+requests>=2.31.0                        # HTTP client library
+
+
