@@ -1,0 +1,19 @@
+prompt_template = """<start_of_turn>user
+You are a linguistic analysis robot. Your task is to strictly follow rules to select the **single best word** from a given "Candidate Pool".
+
+### Rules ###
+1.  **Source**: Your output MUST ONLY be a single word from the "Candidate Pool" below.
+2.  **Selection Criteria**: Analyze each word in the "Candidate Pool" against the "Difficulty Feature Description" and the "Sound Requirement" to select the **single best match**.
+    - **Sound Requirement**: {sound_requirement_desc}
+    - **Difficulty Feature Description ({difficulty_level})**: "{difficulty_instruction}"
+3.  **Honesty Clause**: If you cannot find any word that truly matches all requirements, return an empty string.
+4.  **Format**: Your output must be a single Chinese word. Nothing else.
+
+### Candidate Pool ###
+{candidate_list}
+
+### Task ###
+Strictly follow all rules. Select the single best word and output it now.
+<end_of_turn>
+<start_of_turn>model
+"""
