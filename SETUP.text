@@ -1,0 +1,110 @@
+# Environment Setup Guide
+
+## Prerequisites
+
+- **Python**: 3.9 - 3.11 recommended (Python 3.12 may have compatibility issues with some packages)
+- **CUDA** (optional but recommended): If you have an NVIDIA GPU, install CUDA Toolkit 11.8 or 12.1
+- **FFmpeg**: Required by pydub for audio format conversion
+  # Windows (via Chocolatey)
+    download from: https://ffmpeg.org/download.html
+
+## Step 1: Create Virtual Environment
+
+#powershell
+# Navigate to your project directory
+cd d:\mywhisper
+
+# Create virtual environment
+python -m venv venv
+
+# Activate it
+.\venv\Scripts\Activate.ps1
+
+## Step 2: Install PyTorch (GPU or CPU)
+
+### Option A: GPU Version (Recommended if you have NVIDIA GPU)
+powershell
+# CUDA 11.8
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# OR CUDA 12.1
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+
+### Option B: CPU Version Only
+powershell
+pip install torch torchvision torchaudio
+
+## Step 3: Install llama-cpp-python (with GPU support)
+
+### Option A: GPU Version (CUDA)
+powershell
+# Set environment variable for CUDA build
+$env:CMAKE_ARGS="-DLLAMA_CUBLAS=on"
+pip install llama-cpp-python --no-cache-dir --force-reinstall
+```
+
+### Option B: CPU Version
+powershell
+pip install llama-cpp-python
+
+## Step 4: Install Remaining Dependencies
+powershell
+pip install -r requirements.txt
+
+## Step 5: Verify Installation
+powershell
+python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA Available: {torch.cuda.is_available()}')"
+python -c "import llama_cpp; print('llama-cpp-python: OK')"
+python -c "import transformers; print('transformers: OK')"
+
+
+## Step 6: Check Model Files
+
+Ensure these files exist:
+- model\checkpoint-11000\` (Whisper ASR model)
+- model\Tiger-Gemma-9B-v3-Q3_K_M.gguf` (LLM model)
+- model\pinyin_dict_ch_v3.json` (Pinyin dictionary)
+- model\knowledge_base_ch_v3.json` (Knowledge base)
+
+## Step 7: Run the Server
+powershell
+python llm_asr_server.py
+
+
+The server will start at: `http://localhost:8000`
+
+Check health: `http://localhost:8000/health`
+
+---
+
+## Troubleshooting
+
+### Issue: "CUDA out of memory"
+- Reduce `n_gpu_layers` in the LLM initialization (currently 35)
+- Use a smaller model or quantized version
+
+### Issue: "FFmpeg not found"
+- Install FFmpeg and add it to PATH
+- Verify: `ffmpeg -version`
+
+### Issue: llama-cpp-python not using GPU
+- Reinstall with CMAKE_ARGS as shown in Step 3
+- Verify CUDA toolkit is installed: `nvcc --version`
+
+### Issue: Slow model loading
+- First run downloads transformers models (~1-2GB)
+- Subsequent runs will be faster
+
+---
+ 
+## Package Versions Summary
+
+| Package | Minimum Version | Purpose |
+|---------|----------------|---------|
+| Python | 3.9+ | Runtime |
+| torch | 2.1.0+ | Deep learning framework |
+| transformers | 4.35.0+ | Whisper ASR model |
+| llama-cpp-python | 0.2.23+ | LLM inference |
+| fastapi | 0.110.0+ | Web API framework |
+| noisereduce | 3.0.0+ | Audio noise reduction |
