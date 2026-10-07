@@ -99,7 +99,6 @@ Check health: `http://localhost:8000/health`
 ---
  
 ## Package Versions Summary
-
 | Package | Minimum Version | Purpose |
 |---------|----------------|---------|
 | Python | 3.9+ | Runtime |
@@ -108,3 +107,8 @@ Check health: `http://localhost:8000/health`
 | llama-cpp-python | 0.2.23+ | LLM inference |
 | fastapi | 0.110.0+ | Web API framework |
 | noisereduce | 3.0.0+ | Audio noise reduction |
+
+
+# Lingua Project
+The model is in Hugging Face
+[Tiger-Gemma-9B-v3-Q3_K_M.gguf](https://huggingface.co/你的HuggingFace帳號/Tiger-Gemma-9B-v3-Q3_K_M)
